@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Include the environment script
+source "$(dirname "$0")/env"
+
+# Check if pytest is available
+if ! $PYTHON_CMD -m pytest --version > /dev/null 2>&1; then
+    echo "pytest is not installed. Installing pytest..."
+    $PIP_CMD install pytest
+fi
+
+# Run tests
+$PYTHON_CMD -m pytest --maxfail=1 --disable-warnings -q -vvv # -s

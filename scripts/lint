@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Include the environment script
+source "$(dirname "$0")/env"
+
+# Configuration
+OUTPUT_TO_FILE=${OUTPUT_TO_FILE:-false}  # Default to false if not set
+
+# Define output file
+OUTPUT_FILE="lint.out"
+
+# Check if flake8 is available
+if ! $PYTHON_CMD -m flake8 --version > /dev/null 2>&1; then
+    echo "flake8 is not installed. Installing flake8..."
+    $PIP_CMD install flake8
+fi
+
+# Run linter
+if [ "$OUTPUT_TO_FILE" = true ]; then
+    # Save output to file
+    echo "Running linter and saving output to $OUTPUT_FILE..."
+    $PYTHON_CMD -m flake8 store tests > "$OUTPUT_FILE" 2>&1
+    if [ $? -eq 0 ]; then
+        echo "Linting complete. No issues found. Check $OUTPUT_FILE for details."
+    else
+        echo "Linting complete. Issues found. Check $OUTPUT_FILE for details."
+    fi
+else
+    # Output to terminal
+    echo "Running linter and displaying output on the terminal..."
+    $PYTHON_CMD -m flake8 store tests
+    if [ $? -eq 0 ]; then
+        echo "Linting complete. No issues found."
+    else
+        echo "Linting complete. Issues found."
+        exit 1
+    fi
+fi

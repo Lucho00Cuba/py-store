@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Include the environment script
+source "$(dirname "$0")/env"
+
+# Rest of the install script
+$PIP_CMD install --upgrade pip
+$PIP_CMD install -r requirements.txt

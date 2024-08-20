@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Include the environment script
+source "$(dirname "$0")/env"
+
+# Check if autopep8 is available
+if ! $PYTHON_CMD -m autopep8 --version > /dev/null 2>&1; then
+    echo "autopep8 is not installed. Installing autopep8..."
+    $PIP_CMD install autopep8
+fi
+
+# Format code
+$PYTHON_CMD -m autopep8 --in-place --recursive store tests

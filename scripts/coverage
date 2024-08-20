@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Include the environment script
+source "$(dirname "$0")/env"
+
+# Check if coverage is available
+if ! $PYTHON_CMD -m coverage --version > /dev/null 2>&1; then
+    echo "coverage is not installed. Installing coverage..."
+    $PIP_CMD install coverage
+fi
+
+# Define test directory and pattern
+TEST_DIR="tests"
+PATTERN="test_*.py"
+
+# Run tests and generate coverage report
+echo "Running tests with coverage..."
+$PYTHON_CMD -m coverage run -m unittest discover -s "$TEST_DIR" -p "$PATTERN" -v
+
+echo "Generating coverage report..."
+$PYTHON_CMD -m coverage report -m
+
+echo "Coverage report complete."

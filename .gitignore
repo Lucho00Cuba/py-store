@@ -1,0 +1,45 @@
+# Ignore Python byte code files and directories
+*.pyc
+*.pyo
+__pycache__/
+*.pyd
+
+# Ignore virtual environments
+venv/
+
+# Ignore environment configuration files
+.env
+
+# Ignore MacOS system files
+.DS_Store
+
+# Ignore IDE and editor directories
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore logs
+*.log
+
+# Ignore local development files
+lint.out
+
+# Ignore project-specific files
+data.json
+
+# Ignore coverage reports
+.coverage
+coverage-report/
+htmlcov/
+
+# Ignore backup files
+*~
+*.bak
+*.swp
+
+# Ignore installation and formatting files
+*.egg-info/
+*.eggs/
+dist/
+build/

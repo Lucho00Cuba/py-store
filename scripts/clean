@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+PROJECT_DIR=$(cd "$(dirname "$0")/.." && pwd)
+
+# Clean up build artifacts
+echo "Cleaning up build artifacts..."
+
+# Define a list of patterns to remove
+patterns=("__pycache__" ".pytest_cache" "lint.out" ".coverage")
+
+# Loop through patterns and remove matching files/directories
+for pattern in "${patterns[@]}"; do
+    find "$PROJECT_DIR" -name "$pattern" -print0 | xargs -0 rm -rf
+done
+
+# Check if the virtual environment is active
+if [ -n "$VIRTUAL_ENV" ]; then
+    echo "Virtual environment is active. Deactivating..."
+    exec deactivate
+else
+    echo "No virtual environment is active."
+fi
+
+# Remove the virtual environment directory
+echo "Removing virtual environment..."
+rm -rf venv
+
+echo "Cleanup complete."
